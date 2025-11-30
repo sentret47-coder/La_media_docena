@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Media Docena - Restaurante</title>
+    <style>
+        /* Estilos generales */
+        :root {
+            --primary-color: #d4af37;
+            --secondary-color: #8b0000;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --gray-color: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Estilos del header */
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #c19b2e;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        /* Estilos del hero section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Estilos de secciones */
+        section {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Estilos del menú */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-color);
+            transition: all 0.3s;
+            border-radius: 30px;
+        }
+        
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .menu-item-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+        
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-item-title h3 {
+            font-size: 1.2rem;
+        }
+        
+        .menu-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .menu-item-desc {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .menu-item-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #c19b2e;
+        }
+        
+        /* Estilos del carrito */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease-in-out;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-color);
+        }
+        
+        .cart-items {
+            padding: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: 1px solid #ddd;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-left: none;
+            border-right: none;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--gray-color);
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+        
+        .cart-total {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .total-final {
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #6d0000;
+        }
+        
+        /* Estilos de promociones */
+        .promotions {
+            background-color: #f8f9fa;
+        }
+        
+        .promotion-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .promotion-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .promotion-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .promotion-content {
+            padding: 1.5rem;
+        }
+        
+        .promotion-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .promotion-desc {
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+        }
+        
+        .promotion-code {
+            display: inline-block;
+            background-color: #f1f1f1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-bottom: 1rem;
+        }
+        
+        /* Estilos de información del restaurante */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-icon {
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        /* Estilos de opiniones */
+        .reviews {
+            background-color: #f8f9fa;
+        }
+        
+        .review-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .review-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .reviewer-name {
+            font-weight: bold;
+        }
+        
+        .review-date {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+        
+        .review-rating {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-text {
+            color: var(--gray-color);
+        }
+        
+        .add-review {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        /* Estilos del footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Estilos de modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.open {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-color);
+        }
+        
+        .modal-title {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        /* Estilos responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin: 1rem 0;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🍽️</span>
+                    <h1>La Media Docena</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#menu">Menú</a></li>
+                        <li><a href="#promociones">Promociones</a></li>
+                        <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+                        <li><a href="#opiniones">Opiniones</a></li>
+                    </ul>
+                </nav>
+                <div class="user-actions">
+                    <button class="btn btn-outline" id="loginBtn">Iniciar Sesión</button>
+                    <button class="btn btn-primary" id="registerBtn">Registrarse</button>
+                    <button class="btn btn-primary" id="cartBtn">Carrito (<span id="cartCount">0</span>)</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h2>Bienvenidos a La Media Docena</h2>
+            <p>Descubre los sabores únicos de nuestra cocina tradicional con un toque moderno. Reserva tu mesa o pide a domicilio.</p>
+            <button class="btn btn-primary">Ver Menú</button>
+            <button class="btn btn-outline">Reservar Mesa</button>
+        </div>
+    </section>
+
+    <!-- Menú Section -->
+    <section id="menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestro Menú</h2>
+            </div>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="todos">Todos</button>
+                <button class="category-btn" data-category="entradas">Entradas</button>
+                <button class="category-btn" data-category="platos-fuertes">Platos Fuertes</button>
+                <button class="category-btn" data-category="postres">Postres</button>
+                <button class="category-btn" data-category="bebidas">Bebidas</button>
+            </div>
+            <div class="menu-items" id="menuItems">
+                <!-- Los elementos del menú se cargarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promociones Section -->
+    <section id="promociones" class="promotions">
+        <div class="container">
+            <div class="section-title">
+                <h2>Promociones Especiales</h2>
+            </div>
+            <div class="promotion-cards" id="promotionCards">
+                <!-- Las promociones se cargarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nosotros Section -->
+    <section id="sobre-nosotros">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Nosotros</h2>
+            </div>
+            <div class="about-content">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurante La Media Docena" class="about-img">
+                </div>
+                <div class="about-text">
+                    <h3>Nuestra Historia</h3>
+                    <p>Desde 1995, "La Media Docena" ha sido un referente en la gastronomía local, ofreciendo platos tradicionales preparados con ingredientes frescos y de la más alta calidad.</p>
+                    <p>Nuestro nombre proviene de nuestra especialidad original: seis platos emblemáticos que representan lo mejor de nuestra región. Con el tiempo, hemos ampliado nuestro menú manteniendo siempre nuestro compromiso con la autenticidad y el sabor.</p>
+                    
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Calle Principal 123, Ciudad</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <span>+1 234 567 890</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🕒</span>
+                            <span>Lun-Dom: 11:00 AM - 10:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opiniones Section -->
+    <section id="opiniones" class="reviews">
+        <div class="container">
+            <div class="section-title">
+                <h2>Opiniones de Clientes</h2>
+            </div>
+            <div class="review-cards" id="reviewCards">
+                <!-- Las opiniones se cargarán dinámicamente con JavaScript -->
+            </div>
+            <div class="add-review">
+                <button class="btn btn-primary" id="addReviewBtn">Añadir Opinión</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>La Media Docena</h3>
+                    <p>Restaurante de comida tradicional con los mejores sabores de la región.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">f</a>
+                        <a href="#" class="social-link">t</a>
+                        <a href="#" class="social-link">i</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#menu">Menú</a></li>
+                        <li><a href="#promociones">Promociones</a></li>
+                        <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li>📍 Calle Principal 123, Ciudad</li>
+                        <li>📞 +1 234 567 890</li>
+                        <li>✉️ info@lamediadocena.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Horarios</h3>
+                    <ul>
+                        <li>Lunes - Viernes: 11:00 - 22:00</li>
+                        <li>Sábados: 11:00 - 23:00</li>
+                        <li>Domingos: 11:00 - 21:00</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="exportExcelBtn" style="margin-bottom:15px;">Exportar a Excel</button>
+<div class="footer-bottom">
+                <p>&copy; 2023 La Media Docena. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Carrito Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Los elementos del carrito se cargarán dinámicamente con JavaScript -->
+        </div>
+        <div class="cart-total">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">$0.00</span>
+            </div>
+            <div class="total-row">
+                <span>Envío:</span>
+                <span id="shipping">$2.50</span>
+            </div>
+            <div class="total-row total-final">
+                <span>Total:</span>
+                <span id="total">$2.50</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Realizar Pedido</button>
+        </div>
+    </div>
+
+    <!-- Modal de Inicio de Sesión -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2 class="modal-title">Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Correo Electrónico</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancelLogin">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeRegisterModal">&times;</button>
+            <h2 class="modal-title">Registrarse</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nombre Completo</label>
+                    <input type="text" id="registerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Correo Electrónico</label>
+                    <input type="email" id="registerEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Contraseña</label>
+                    <input type="password" id="registerPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar Contraseña</label>
+                    <input type="password" id="registerConfirmPassword" class="form-control" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancelRegister">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Añadir Opinión -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeReviewModal">&times;</button>
+            <h2 class="modal-title">Añadir Opinión</h2>
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="reviewerName">Tu Nombre</label>
+                    <input type="text" id="reviewerName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="reviewRating">Calificación</label>
+                    <select id="reviewRating" class="form-control" required>
+                        <option value="">Selecciona una calificación</option>
+                        <option value="5">★★★★★ Excelente</option>
+                        <option value="4">★★★★ Muy Bueno</option>
+                        <option value="3">★★★ Bueno</option>
+                        <option value="2">★★ Regular</option>
+                        <option value="1">★ Malo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reviewText">Tu Opinión</label>
+                    <textarea id="reviewText" class="form-control" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancelReview">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Opinión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo para el menú
+        const menuData = [
+            {
+                id: 1,
+                name: "Ceviche Mixto",
+                category: "entradas",
+                price: 18.50,
+                description: "Pescado, camarones y calamares marinados en limón con cebolla, cilantro y ají limo.",
+                image: "https://images.unsplash.com/photo-1587335116470-7b7d5edf027c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 2,
+                name: "Lomo Saltado",
+                category: "platos-fuertes",
+                price: 24.90,
+                description: "Trozos de lomo de res salteados con cebolla, tomate y ají, servidos con papas fritas y arroz.",
+                image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 3,
+                name: "Arroz con Mariscos",
+                category: "platos-fuertes",
+                price: 22.50,
+                description: "Arroz preparado con una variedad de mariscos frescos y especias peruanas.",
+                image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 4,
+                name: "Suspiro a la Limeña",
+                category: "postres",
+                price: 8.50,
+                description: "Dulce tradicional de manjarblanco cubierto con merengue y canela.",
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 5,
+                name: "Pisco Sour",
+                category: "bebidas",
+                price: 12.00,
+                description: "Cóctel emblemático del Perú preparado con pisco, limón, clara de huevo y jarabe de goma.",
+                image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 6,
+                name: "Causa Limeña",
+                category: "entradas",
+                price: 16.00,
+                description: "Puré de papa amarilla sazonado con limón y ají, relleno de pollo o atún.",
+                image: "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            }
+        ];
+
+        // Datos de ejemplo para promociones
+        const promotionsData = [
+            {
+                id: 1,
+                title: "2x1 en Postres",
+                description: "Todos los martes y jueves disfruta de 2x1 en todos nuestros postres.",
+                code: "POSTRE2X1",
+                image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 2,
+                title: "Menú Ejecutivo",
+                description: "De lunes a viernes de 12:00 a 15:00, disfruta de nuestro menú ejecutivo por solo $15.90.",
+                code: "EJECUTIVO",
+                image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            },
+            {
+                id: 3,
+                title: "Descuento en Cumpleaños",
+                description: "Presenta tu DNI y recibe un 20% de descuento en tu consumo durante tu mes de cumpleaños.",
+                code: "FELIZCUMPLE",
+                image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+            }
+        ];
+
+        // Datos de ejemplo para opiniones
+        const reviewsData = [
+            {
+                id: 1,
+                name: "María González",
+                date: "15 Oct, 2023",
+                rating: 5,
+                text: "Excelente comida y servicio. El lomo saltado es increíble, definitivamente volveré."
+            },
+            {
+                id: 2,
+                name: "Carlos Rodríguez",
+                date: "10 Oct, 2023",
+                rating: 4,
+                text: "Muy buena atención y los platos están deliciosos. El ambiente es acogedor."
+            },
+            {
+                id: 3,
+                name: "Ana Martínez",
+                date: "5 Oct, 2023",
+                rating: 5,
+                text: "Probé el ceviche y estaba espectacular. Los precios son justos y la porción generosa."
+            }
+        ];
+
+        // Estado de la aplicación
+        let cart = [];
+        let currentUser = null;
+
+        // Elementos del DOM
+        const menuItemsContainer = document.getElementById('menuItems');
+        const promotionCardsContainer = document.getElementById('promotionCards');
+        const reviewCardsContainer = document.getElementById('reviewCards');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartCountElement = document.getElementById('cartCount');
+        const subtotalElement = document.getElementById('subtotal');
+        const totalElement = document.getElementById('total');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartBtn = document.getElementById('cartBtn');
+        const closeCartBtn = document.getElementById('closeCart');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const reviewModal = document.getElementById('reviewModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const closeReviewModal = document.getElementById('closeReviewModal');
+        const cancelLogin = document.getElementById('cancelLogin');
+        const cancelRegister = document.getElementById('cancelRegister');
+        const cancelReview = document.getElementById('cancelReview');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const reviewForm = document.getElementById('reviewForm');
+        const addReviewBtn = document.getElementById('addReviewBtn');
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            renderMenuItems('todos');
+            renderPromotions();
+            renderReviews();
+            setupEventListeners();
+        });
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Carrito
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', toggleCart);
+            checkoutBtn.addEventListener('click', checkout);
+            
+            // Categorías del menú
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    renderMenuItems(category);
+                });
+            });
+            
+            // Modales
+            loginBtn.addEventListener('click', () => openModal(loginModal));
+            registerBtn.addEventListener('click', () => openModal(registerModal));
+            addReviewBtn.addEventListener('click', () => openModal(reviewModal));
+            
+            closeLoginModal.addEventListener('click', () => closeModal(loginModal));
+            closeRegisterModal.addEventListener('click', () => closeModal(registerModal));
+            closeReviewModal.addEventListener('click', () => closeModal(reviewModal));
+            
+            cancelLogin.addEventListener('click', () => closeModal(loginModal));
+            cancelRegister.addEventListener('click', () => closeModal(registerModal));
+            cancelReview.addEventListener('click', () => closeModal(reviewModal));
+            
+            // Formularios
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            reviewForm.addEventListener('submit', handleReview);
+            
+            // Cerrar modales al hacer clic fuera
+            window.addEventListener('click', function(event) {
+                if (event.target === loginModal) closeModal(loginModal);
+                if (event.target === registerModal) closeModal(registerModal);
+                if (event.target === reviewModal) closeModal(reviewModal);
+            });
+        }
+
+        // Renderizar elementos del menú
+        function renderMenuItems(category) {
+            menuItemsContainer.innerHTML = '';
+            
+            const filteredItems = category === 'todos' 
+                ? menuData 
+                : menuData.filter(item => item.category === category);
+            
+            filteredItems.forEach(item => {
+                const menuItemElement = document.createElement('div');
+                menuItemElement.className = 'menu-item';
+                menuItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-img">
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>${item.name}</h3>
+                            <span class="menu-item-price">$${item.price.toFixed(2)}</span>
+                        </div>
+                        <p class="menu-item-desc">${item.description}</p>
+                        <div class="menu-item-actions">
+                            <button class="add-to-cart" data-id="${item.id}">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                `;
+                menuItemsContainer.appendChild(menuItemElement);
+            });
+            
+            // Agregar event listeners a los botones de añadir al carrito
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    addToCart(itemId);
+                });
+            });
+        }
+
+        // Renderizar promociones
+        function renderPromotions() {
+            promotionCardsContainer.innerHTML = '';
+            
+            promotionsData.forEach(promotion => {
+                const promotionElement = document.createElement('div');
+                promotionElement.className = 'promotion-card';
+                promotionElement.innerHTML = `
+                    <img src="${promotion.image}" alt="${promotion.title}" class="promotion-img">
+                    <div class="promotion-content">
+                        <h3 class="promotion-title">${promotion.title}</h3>
+                        <p class="promotion-desc">${promotion.description}</p>
+                        <div class="promotion-code">Código: ${promotion.code}</div>
+                    </div>
+                `;
+                promotionCardsContainer.appendChild(promotionElement);
+            });
+        }
+
+        // Renderizar opiniones
+        function renderReviews() {
+            reviewCardsContainer.innerHTML = '';
+            
+            reviewsData.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'review-card';
+                reviewElement.innerHTML = `
+                    <div class="review-header">
+                        <span class="reviewer-name">${review.name}</span>
+                        <span class="review-date">${review.date}</span>
+                    </div>
+                    <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                    <p class="review-text">${review.text}</p>
+                `;
+                reviewCardsContainer.appendChild(reviewElement);
+            });
+        }
+
+        // Funciones del carrito
+        function addToCart(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            if (!item) return;
+            
+            const existingItem = cart.find(cartItem => cartItem.id === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${item.name} añadido al carrito`);
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        function updateQuantity(itemId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(itemId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity = newQuantity;
+            }
+            
+            updateCart();
+        }
+
+        function updateCart() {
+            // Actualizar contador del carrito
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+            
+            // Actualizar elementos del carrito
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Tu carrito está vacío</p>';
+                subtotalElement.textContent = '$0.00';
+                totalElement.textContent = '$2.50';
+                return;
+            }
+            
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}">&times;</button>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Actualizar totales
+            const shipping = 2.50;
+            const total = subtotal + shipping;
+            
+            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
+            totalElement.textContent = `$${total.toFixed(2)}`;
+            
+            // Agregar event listeners a los controles de cantidad
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(item => item.id === itemId);
+                    if (item) {
+                        updateQuantity(itemId, item.quantity - 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(item => item.id === itemId);
+                    if (item) {
+                        updateQuantity(itemId, item.quantity + 1);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    const newQuantity = parseInt(this.value) || 1;
+                    updateQuantity(itemId, newQuantity);
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(itemId);
+                });
+            });
+        }
+
+        function toggleCart() {
+            cartSidebar.classList.toggle('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Por favor, inicia sesión para realizar tu pedido');
+                closeModal(loginModal);
+                openModal(loginModal);
+                return;
+            }
+            
+            // Simular proceso de checkout
+            alert('¡Pedido realizado con éxito! Te contactaremos pronto para confirmar los detalles.');
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        // Funciones de modales
+        function openModal(modal) {
+            modal.classList.add('open');
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('open');
+        }
+
+        // Manejo de formularios
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simular inicio de sesión
+            currentUser = {
+                name: 'Usuario Ejemplo',
+                email: email
+            };
+            
+            alert(`Bienvenido de nuevo, ${currentUser.name}`);
+            closeModal(loginModal);
+            
+            // Actualizar interfaz para usuario registrado
+            loginBtn.textContent = currentUser.name;
+            registerBtn.style.display = 'none';
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+            
+            // Simular registro
+            currentUser = {
+                name: name,
+                email: email
+            };
+            
+            alert(`¡Bienvenido a La Media Docena, ${currentUser.name}!`);
+            closeModal(registerModal);
+            
+            // Actualizar interfaz para usuario registrado
+            loginBtn.textContent = currentUser.name;
+            registerBtn.style.display = 'none';
+        }
+
+        function handleReview(e) {
+            e.preventDefault();
+            const name = document.getElementById('reviewerName').value;
+            const rating = document.getElementById('reviewRating').value;
+            const text = document.getElementById('reviewText').value;
+            
+            if (!name || !rating || !text) {
+                alert('Por favor, completa todos los campos');
+                return;
+            }
+            
+            // Añadir nueva opinión
+            const newReview = {
+                id: reviewsData.length + 1,
+                name: name,
+                date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }),
+                rating: parseInt(rating),
+                text: text
+            };
+            
+            reviewsData.unshift(newReview);
+            renderReviews();
+            
+            alert('¡Gracias por tu opinión!');
+            closeModal(reviewModal);
+            reviewForm.reset();
+        }
+
+        // Utilidades
+        function showNotification(message) {
+            // Crear notificación temporal
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: var(--primary-color);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 4px;
+                z-index: 1003;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+
+<script>
+function exportToExcel(data, fileName) {
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
+    XLSX.writeFile(workbook, fileName + ".xlsx");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("exportExcelBtn");
+    if (btn) {
+        btn.addEventListener("click", () => {
+            const option = prompt("¿Qué deseas exportar?\n1 = Menú\n2 = Opiniones\n3 = Carrito");
+            if (option === "1") exportToExcel(menuData, "menu_restaurante");
+            else if (option === "2") exportToExcel(reviewsData, "opiniones_clientes");
+            else if (option === "3") {
+                if (cart.length === 0) return alert("El carrito está vacío");
+                exportToExcel(cart, "carrito_compra");
+            } 
+            else alert("Opción no válida");
+        });
+    }
+});
+</script>
+
+</html>
